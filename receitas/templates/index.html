@@ -1,4 +1,4 @@
-    {% extends 'base.html' %} <!-- tras o header e footer do base.html -->
+    {% extends 'base.html' %} <!-- tras o header e footer do base.html. Tem que estar no começo para funcionar -->
     {% load static %}
     {% block content %}
     <!-- Preloader -->
@@ -30,77 +30,24 @@
     <section class="best-receipe-area">
         <div class="container">
             <div class="row">
+                {% if receitas %} <!-- se refere à chave 'receitas' dentro do dicionario receitas, não ao banco de dados! -->>
+                <!--Caso não tivesse integração com bd: for chave,nome in nomes_das_receitas.items -->
                 <!-- Single Best Receipe Area -->
+                {% for receita in receitas %}
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
                         <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
                         <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
+                            <a href="{% url 'receita' receita.id %}">
+                                <h5>{{ receita.nome_receita }}<!-- Caso não tivesse integração com bd; nome --></h5>
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        <div class="receipe-content">
-                            <a href="{% url 'receita' %}">
-                                <h5>Nome da receita</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+                {% else %}
+                <h5>Nenhuma receita encontrada.</h5>
+                {% endif %}
             </div>
         </div>
     </section>
