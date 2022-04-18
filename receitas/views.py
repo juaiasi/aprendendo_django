@@ -4,7 +4,9 @@ from django.shortcuts import get_object_or_404, render
 from .models import Receita #importa um modelo que foi cadastrado
 
 def index(request):
-    receitas = Receita.objects.all() #se der erro, é por causa do vscode, precisa instalar o pylint-django
+    # receitas = Receita.objects.all() #pega tudo
+    receitas = Receita.objects.order_by('-data_receita').filter(publicada=True) #filtra
+
 
     dados = {
         'receitas':receitas
