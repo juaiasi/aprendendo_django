@@ -14,3 +14,5 @@ class Receita(models.Model):
     data_receita = models.DateTimeField(datetime.now(),blank=True) #permite deixar em branco
     foto_receita = models.ImageField(upload_to='fotos/%d/%m/%Y/', blank = True) #salva apenas o caminho da imagem, em settings foi criada duas linhas para configuarar isso
     publicada = models.BooleanField(default=True)
+    def __str__(self):
+        return self.nome_receita
