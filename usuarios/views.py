@@ -92,3 +92,8 @@ def campo_vazio(campo):
 
 def valores_nao_iguais(senha1,senha2):
     return senha1 != senha2
+
+def deleta_receita(request,receita_id):
+    receita = get_object_or_404(Receita, pk=receita_id)
+    receita.delete()
+    return redirect('dashboard')
