@@ -10,8 +10,8 @@ def cadastro(request):
         senha = request.POST['password'] #pega o nome
         senha2 = request.POST['password2'] #pega o nome
         #validação
-        if campo_vazio(nome): #não pode ficar em branco
-            messages.error(request,"Ususário não pode estar em branco")
+        if campo_vazio(nome) or campo_vazio(senha) or campo_vazio(email): #não pode ficar em branco
+            messages.error(request,"Nenhum campo pode estar em branco")
             return redirect('cadastro')
         if valores_nao_iguais(senha,senha2):
             messages.error(request,"As Senhas não correspondem.") # mensagem de alerta, foi cadastrada antes em settings e criado um partials um template
