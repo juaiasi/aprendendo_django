@@ -20,5 +20,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('receitas.urls')), #pega o caminho da url dentro do app receitas
+    path('usuarios/',include('usuarios.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #essa linha permite usar statics, permite usar a url dos statics
