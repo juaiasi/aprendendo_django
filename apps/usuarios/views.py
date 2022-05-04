@@ -2,8 +2,10 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from receitas.models import Receita
+from receitas.views.receita import receita
 
 def cadastro(request):
+    """Cadastra uma nova pessoa no sistema"""
     if request.method == 'POST':
         nome = request.POST['nome'] #pega o nome
         email = request.POST['email'] #pega o nome
@@ -34,6 +36,7 @@ def cadastro(request):
         return render(request,'usuarios/cadastro.html')
 
 def login(request):
+    """Realiza o login de uma pessoa no sitema"""
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
@@ -55,10 +58,12 @@ def login(request):
     return render(request, 'usuarios/login.html')
 
 def logout(request):
+    """Realiza o logout"""
     auth.logout(request)
     return redirect('index')
 
 def dashboard(request):
+    """Mostra as receitas pessoais do usuário no Dashboard"""
     if request.user.is_authenticated:
         id = request.user.id
         receitas = Receita.objects.order_by('-data_receita').filter(pessoa=id)
@@ -69,31 +74,8 @@ def dashboard(request):
     else:
         return redirect('index')
 
-def cria_receita(request):
-    if request.method == 'POST':
-        nome_receita = request.POST['nome_receita']
-        ingredientes = request.POST['ingredientes']
-        modo_preparo = request.POST['modo_preparo']
-        tempo_preparo = request.POST['tempo_preparo']
-        rendimento = request.POST['rendimento']
-        categoria = request.POST['categoria']
-        foto_receita = request.FILES['foto_receita'] #trás o arquivo
-        #criar a receita associada ao usuário logado:
-        user = get_object_or_404(User, pk=request.user.id)
-        receita = Receita.objects.create(pessoa=user,nome_receita=nome_receita,ingredientes=ingredientes,modo_preparo=modo_preparo,tempo_preparo=tempo_preparo,rendimento=rendimento,categoria=categoria,foto_receita=foto_receita)
-        receita.save() #salva no banco de dados
-        return redirect('dashboard')
-    else:
-        return render(request,'usuarios/cria_receita.html')
-
-
 def campo_vazio(campo):
     return not campo.strip()
 
 def valores_nao_iguais(senha1,senha2):
     return senha1 != senha2
-
-def deleta_receita(request,receita_id):
-    receita = get_object_or_404(Receita, pk=receita_id)
-    receita.delete()
-    return redirect('dashboard')

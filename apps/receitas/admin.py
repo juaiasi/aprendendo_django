@@ -8,6 +8,6 @@ class ListandoReceitas(admin.ModelAdmin):
     search_fields = ('nome_receita',) #campo de busca - precisa colocar uma virgula para entender que é uma tupla e não um elemento só
     list_filter = ('categoria',) #categoria lateral para filtrar
     list_editable = ('publicada',) #lista dos campos editáveis sem precisar entrar
-    list_per_page = 3 #faz ativar paginação a cada 3
+    list_per_page = 4 #faz ativar paginação a cada 3
 
 admin.site.register(Receita, ListandoReceitas) #se não incluir a segunda classe, o admin não vai ficar personalizado
